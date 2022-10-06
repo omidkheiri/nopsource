@@ -18,7 +18,7 @@ namespace Nop.Data
         /// <param name="dataProviderType">Data provider type</param>
         /// <returns></returns>
         public static INopDataProvider GetDataProvider(DataProviderType dataProviderType)
-        {
+        {//
             return dataProviderType switch
             {
                 DataProviderType.SqlServer => new MsSqlNopDataProvider(),
