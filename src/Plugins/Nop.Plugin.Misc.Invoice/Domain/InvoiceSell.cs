@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +8,9 @@ using Nop.Core;
 
 namespace Nop.Plugin.Misc.Invoice.Domain
 {
-    public class InvoiceSell:BaseEntity
+    public class InvoiceSell
     {
+        [Key]
         public decimal BuildingNo { get; set; }
         public long InvoiceNo { get; set; }
         public string UserNumber { get; set; } = null!;
@@ -176,5 +178,8 @@ namespace Nop.Plugin.Misc.Invoice.Domain
         public string? PaymentTypes { get; set; }
         public decimal? SubNetTotalExecludingTax { get; set; }
         public byte[]? RowTimestamp { get; set; }
+
+        public ICollection<InvoiceSellUnit> InvoiceSellUnits { get; set; }
+
     }
 }

@@ -7,7 +7,8 @@ using Nop.Core;
 
 namespace Nop.Plugin.Misc.Invoice.Domain
 {
-    public class InvoiceSellUnit: BaseEntity
+    public class InvoiceSellUnit
     {
+
     }
 }

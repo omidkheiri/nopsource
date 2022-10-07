@@ -66,6 +66,10 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.AspNetCore.Core" Version="22.1.6-pre-22257" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <!-- This target execute after "Build" target.
