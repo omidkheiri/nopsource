@@ -37,9 +37,7 @@ namespace Nop.Web.Infrastructure
                 pattern: $"{lang}/login/",
                 defaults: new { controller = "Customer", action = "Login" });
 
-            endpointRouteBuilder.MapControllerRoute(name: "Invoice",
-               pattern: $"{lang}/Invoice/",
-               defaults: new { controller = "Invoice", action = "Index" });
+           
 
 
 

@@ -1,0 +1,17 @@
+﻿@using DevExtreme.AspNet.Mvc
+@{
+  Layout = "_ColumnsOne";
+}
+@await  Html.PartialAsync("~/Plugins/Misc.Invoice/Views/_UiPartial.cshtml")
+
+<div class="row">
+    <div class="col-md-3">Test
+        <div class="form-group">
+          
+            @(Html.DevExtreme().TextBox())
+        </div>
+       
+    </div>
+      <div class="col-md-3">test</div>
+        <div class="col-md-3">Test</div>
+</div>

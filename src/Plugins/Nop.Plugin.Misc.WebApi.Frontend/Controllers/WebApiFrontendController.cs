@@ -7,9 +7,9 @@ using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugin.Misc.WebApi.Frontend.Controllers
 {
-    [AutoValidateAntiforgeryToken]
-    [AuthorizeAdmin]
-    [Area(AreaNames.Admin)]
+    //[AutoValidateAntiforgeryToken]
+    //[AuthorizeAdmin]
+    //[Area(AreaNames.)]
     public partial class WebApiFrontendController : BasePluginController
     {
         #region Fields
