@@ -31,11 +31,7 @@
     .RowAlternationEnabled(true)
     .ShowBorders(true)
     .Columns(columns => {
-     columns.AddFor(m => m.Id).Caption("Invoice No").CellTemplate(@<text>  
-<a href='sdfsdf?b31n_id_num_packing=<%= Value %>'>Show</a>  
-</text>
-     
-     );
+    columns.AddFor(m => m.Id).Caption("Id");
      columns.AddFor(m => m.InvoiceNo).Caption("Invoice No");
      columns.AddFor(m => m.DateG).Caption("Date G");
      columns.AddFor(m => m.EName);
@@ -43,6 +39,15 @@
      columns.AddFor(m => m.AName);
      columns.AddFor(m => m.InvoiceVatid).Caption("Invoice Vat id");;
      columns.AddFor(m => m.ClientVendorNo).Caption("Client Vendor No");
+	 
+	   columns.AddFor(m => m.Id).Caption("").CellTemplate(@<text>
+<a href='invoice/create?id=[%= data.InvoiceNo %]'>Edit</a>  
+</text>
+     
+     );
+	 
+	 
+	 
     }).FilterRow(f => f.Visible(true))
     .HeaderFilter(f => f.Visible(true))
     )

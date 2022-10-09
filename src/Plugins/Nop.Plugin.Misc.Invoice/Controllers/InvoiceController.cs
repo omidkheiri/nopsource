@@ -64,13 +64,6 @@ namespace Nop.Plugin.Misc.Invoice.Controllers
             return _invoiceSellService.GetInvoices(loadOptions);
         }
 
-        [HttpGet]
-        public object InvoiceUnitList(int id, DataSourceLoadOptions loadOptions)
-        {
-            return _invoiceSellService.GetInvoices(loadOptions);
-        }
-
-
         [HttpPost]
         public IActionResult Create([FromQuery] int id, [FromBody] Models.InvoiceSell model)
         {
