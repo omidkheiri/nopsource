@@ -125,32 +125,32 @@
 
 
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.SubNetTotalPlusTax).Label("Sub Net Total Plus Tax")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.SubNetTotalPlusTax).Format("#,##0.00").Label("Sub Net Total Plus Tax")
             .LabelMode(EditorLabelMode.Static))
         </div>
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.TaxRate1Total).Label("Tax Rate1 Total")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.TaxRate1Total).Format("#,##0.00").Label("Tax Rate1 Total")
             .LabelMode(EditorLabelMode.Static))
         </div>
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.SubNetTotal).Label("Sub Net Total")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.SubNetTotal).Format("#,##0.00").Label("Sub Net Total")
             .LabelMode(EditorLabelMode.Static))
         </div>
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.SubTotalDiscount).Label("Sub Total Discount")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.SubTotalDiscount).Format("#,##0.00").Label("Sub Total Discount")
             .LabelMode(EditorLabelMode.Static))
         </div>
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.SubQuantity).Label("Sub Quantity")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.SubQuantity).Format("#,##0.00").Label("Sub Quantity")
             .LabelMode(EditorLabelMode.Static))
         </div>
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.AmountLeftAfterAllBills).Label("Amount Left After All Bills")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.AmountLeftAfterAllBills).Format("#,##0.00").Label("Amount Left After All Bills")
             .LabelMode(EditorLabelMode.Static))
         </div>
 
         <div class="col-md-2  mt-1">
-            @(Html.DevExtreme().TextBoxFor(i=>i.AmountLeft).Label("Amount Left")
+            @(Html.DevExtreme().NumberBoxFor(i=>i.AmountLeft).Format("#,##0.00").Label("Amount Left")
             .LabelMode(EditorLabelMode.Static))
         </div>
 
