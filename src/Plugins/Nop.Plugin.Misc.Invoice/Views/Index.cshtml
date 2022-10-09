@@ -31,7 +31,7 @@
     .RowAlternationEnabled(true)
     .ShowBorders(true)
     .Columns(columns => {
-    columns.AddFor(m => m.Id).Caption("Id");
+     columns.AddFor(m => m.Id).Caption("Id");
      columns.AddFor(m => m.InvoiceNo).Caption("Invoice No");
      columns.AddFor(m => m.DateG).Caption("Date G");
      columns.AddFor(m => m.EName);
@@ -41,7 +41,7 @@
      columns.AddFor(m => m.ClientVendorNo).Caption("Client Vendor No");
 	 
 	   columns.AddFor(m => m.Id).Caption("").CellTemplate(@<text>
-<a href='invoice/create?id=[%= data.InvoiceNo %]'>Edit</a>  
+<a href='/invoice/create?id=[%= data.InvoiceNo %]'>Edit</a>  
 </text>
      
      );
@@ -51,24 +51,4 @@
     }).FilterRow(f => f.Visible(true))
     .HeaderFilter(f => f.Visible(true))
     )
-    <script>
-
-$(document).ready(function(){
-
-  $("#InvoiceItems").dxDataGrid({
-        onRowClick: function(e) {
-            if(e.rowType === "data") {
-                console.log(e);
-              window.location.href="/invoice/create?id="+e.data['InvoiceNo']
-            }
-        }
-    });
-
- 
- 
-
-
-})
-
-  
-</script>
+   

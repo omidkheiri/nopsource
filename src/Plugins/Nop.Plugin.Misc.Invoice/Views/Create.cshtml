@@ -106,19 +106,61 @@
             columns.AddFor(m => m.Price).Caption("Price").DataType(GridColumnDataType.Number);
             columns.AddFor(m => m.Quantity).Caption("Quantity");
             columns.AddFor(m => m.Discount).Caption("Discount");
-            columns.AddFor(m => m.Total).Caption("Total");
+            columns.AddFor(m => m.Total).Caption("Total").AllowEditing(false);
             columns.AddFor(m => m.TaxRate1Percentage).Caption("Tax Rate 1 Percentage");
-            columns.AddFor(m => m.TaxRate1Total).Caption("Tax Rate 1 Total");
-            columns.AddFor(m => m.TotalPlusTax).Caption("Total Plus Tax");
+            columns.AddFor(m => m.TaxRate1Total).Caption("Tax Rate 1 Total").AllowEditing(false);;
+            columns.AddFor(m => m.TotalPlusTax).Caption("Total Plus Tax").AllowEditing(false);;
 
 
 
             }).FilterRow(f => f.Visible(true))
+          
             .HeaderFilter(f => f.Visible(true))
             )
 
 
         </div>
+
+
+
+
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.SubNetTotalPlusTax).Label("Sub Net Total Plus Tax")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.TaxRate1Total).Label("Tax Rate1 Total")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.SubNetTotal).Label("Sub Net Total")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.SubTotalDiscount).Label("Sub Total Discount")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.SubQuantity).Label("Sub Quantity")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.AmountLeftAfterAllBills).Label("Amount Left After All Bills")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+
+        <div class="col-md-2  mt-1">
+            @(Html.DevExtreme().TextBoxFor(i=>i.AmountLeft).Label("Amount Left")
+            .LabelMode(EditorLabelMode.Static))
+        </div>
+
+
+
+
+
+
+
+
         <span class="m-10" style="
     display: block;
     margin: 10px 10px;
@@ -129,9 +171,91 @@
     </div>
 </form>
 <script>
+  
+
     $(document).ready(function() {
         var data;
-
+         $('#UnitItems').dxDataGrid('instance').on("rowUpdating", function(e){
+		 console.log(e)
+		 var qty=e.oldData.Quantity;
+		 var price=e.oldData.Price;
+		 var discount=e.oldData.Discount;
+		 var taxRate=e.oldData.TaxRate1Percentage;
+		 if(e.newData.Price){
+		 price=e.newData.Price;
+		 }
+		  if(e.newData.Quantity){
+		 qty=e.newData.Quantity;
+		 }
+		  if(e.newData.Discount){
+		 discount=e.newData.Discount;
+		 }
+		 
+		 if(e.newData.TaxRate1Percentage){
+		 taxRate=e.newData.TaxRate1Percentage;
+		 }
+		 
+		 var total=(price * qty)-discount;
+		 var taxtotal=total*(taxRate/100);
+		 e.newData['Total']=total
+		  e.newData['TaxRate1Total']=taxtotal;
+		   e.newData['TotalPlusTax']=total+taxtotal;
+		 
+		 }).on("rowInserting", function(e){
+		 console.log(e)
+		 var qty=e.data.Quantity;
+		 var price=e.data.Price;
+		 var discount=e.data.Discount;
+		 var taxRate=e.data.TaxRate1Percentage;
+		console.log(price,qty,discount)
+		 
+		 var total=(price * qty)-discount;
+		 var taxtotal=total*(taxRate/100);
+		 e.data['Total']=total
+		  e.data['TaxRate1Total']=taxtotal;
+		   e.data['TotalPlusTax']=total+taxtotal;
+		
+		 }).on('rowInserted',function(){ updateTotals()}).on('rowUpdated',function(){ updateTotals()});
+		function updateTotals(){
+		
+		var grid = $('#UnitItems').dxDataGrid('instance');
+            var dataItems = grid.getDataSource().items();
+			var SubNetTotalPlusTax=0
+            var TaxRate1Total=0
+			var SubNetTotal =0
+			var SubTotalDiscount=0 
+			var SubQuantity =0
+			var AmountLeftAfterAllBills=0
+            var AmountLeft=0
+			
+			
+			dataItems.forEach((item)=>{
+			
+			SubNetTotalPlusTax+=item.TotalPlusTax;
+			
+			
+             TaxRate1Total+=item.TotalPlusTax;
+			 SubNetTotal +=item.Total;
+			 SubTotalDiscount+=item.Discount;
+			 SubQuantity +=item.Quantity;
+			 AmountLeftAfterAllBills+=item.TotalPlusTax;
+             AmountLeft+=item.TotalPlusTax;
+			 
+			 
+			
+			})
+			
+		$("#SubNetTotalPlusTax").val(SubNetTotalPlusTax);
+		$("#TaxRate1Total").val(TaxRate1Total);
+		$("#SubNetTotal").val(SubNetTotal);
+		$("#SubTotalDiscount").val(SubTotalDiscount);
+		$("#SubQuantity").val(SubQuantity);
+		$("#AmountLeftAfterAllBills").val(SubNetTotalPlusTax);
+		$("#AmountLeft").val(SubNetTotalPlusTax);
+		
+		
+		
+		}
         $("#invoiceFrom").submit(function(event) {
 
             event.preventDefault();
@@ -145,8 +269,7 @@
 
             var grid = $('#UnitItems').dxDataGrid('instance');
             var dataItems = grid.getDataSource().items();
-            console.log(dataItems);
-
+           
             f['InvoiceSellIUnits'] = dataItems;
             console.log(f)
 
@@ -159,7 +282,7 @@
                 contentType: "application/json",
                 data: JSON.stringify(f),
                 success: function(result) {
-                  window.location.href="/Invoice/index"
+                    window.location.href = "/Invoice/index"
                 },
                 error: function(xhr, resp, text) {
                     console.log(xhr, resp, text);

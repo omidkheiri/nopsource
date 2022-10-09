@@ -36,9 +36,9 @@ namespace Nop.Plugin.Misc.Invoice.Services
         {
             var item = _context.InvoiceSell.FindByCondition(i => i.InvoiceNo == id).FirstOrDefault();
 
-            if (item!=null)
+            if (item != null)
             {
-               
+
 
                 item.DateH = model.DateH;
                 item.DateG = model.DateG;
@@ -50,7 +50,26 @@ namespace Nop.Plugin.Misc.Invoice.Services
                 item.ClientVendorNo = model.ClientVendorNo;
 
 
-                _context.InvoiceSell.Update(item);
+
+                item.SubNetTotalPlusTax = model.SubNetTotalPlusTax;
+                item.TaxRate1Total = model.TaxRate1Total;
+                item.SubNetTotal = model.SubNetTotal;
+                item.SubTotalDiscount = model.SubTotalDiscount;
+                item.SubQuantity = model.SubQuantity;
+                item.AmountLeftAfterAllBills = model.AmountLeftAfterAllBills;
+                item.AmountLeft = model.AmountLeft;
+
+        
+
+
+
+
+
+
+
+
+
+        _context.InvoiceSell.Update(item);
 
                 _context.Save();
             }
