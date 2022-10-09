@@ -1,17 +1,171 @@
 ﻿@using DevExtreme.AspNet.Mvc
+@using Nop.Plugin.Misc.Invoice.Models
+@model InvoiceSell
 @{
-  Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 }
 @await  Html.PartialAsync("~/Plugins/Misc.Invoice/Views/_UiPartial.cshtml")
 
-<div class="row">
-    <div class="col-md-3">Test
-        <div class="form-group">
-          
-            @(Html.DevExtreme().TextBox())
+
+<form id="invoiceFrom" action="/Invoice/Create">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.DateH).Label("Date H")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+
         </div>
-       
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().DateBoxFor(i=>i.DateG).Label("Date G")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.InvoiceNo).Label("Invoice No")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.EName).Label("E Name")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.MainContact1).Label("Main Contact 1")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.AName).Label("A Name")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.InvoiceVatid).Label("Invoice Vatid")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                @(Html.DevExtreme().TextBoxFor(i=>i.ClientVendorNo).Label("Client Vendor No")
+                .LabelMode(EditorLabelMode.Floating))
+            </div>
+        </div>
+
+        <hr style="width:100%" />
+
+        <div class="col-md-12">
+            @(Html.DevExtreme().DataGrid<InvoiceSellIUnit>().ID("UnitItems")
+            .DataSource(Model.InvoiceSellIUnits)
+            .RemoteOperations(true).ShowColumnLines(true)
+            .Scrolling(s => s
+            .Mode(GridScrollingMode.Virtual)
+            .RowRenderingMode(GridRowRenderingMode.Virtual)
+            )
+            .Paging(p => p.PageSize(100))
+            .HeaderFilter(f => f.Visible(true))
+            .WordWrapEnabled(true)
+            .Height(440)
+            .ShowRowLines(true)
+            .RowAlternationEnabled(true)
+            .ShowBorders(true)
+            .Editing(editing => {
+            editing.Mode(GridEditMode.Row);
+            editing.AllowAdding(true);
+            editing.AllowDeleting(true);
+            editing.AllowUpdating(true);
+            })
+            .Columns(columns => {
+            columns.AddFor(m => m.OrderNo).Caption("Order No");
+            columns.AddFor(m => m.ItemNo).Caption("Item No");
+            columns.AddFor(m => m.EName).Caption("E Name");
+            columns.AddFor(m => m.AName).Caption("A Name");
+            columns.AddFor(m => m.UnitNo).Caption("Unit No");
+            columns.AddFor(m => m.Price).Caption("Price").DataType(GridColumnDataType.Number);
+            columns.AddFor(m => m.Quantity).Caption("Quantity");
+            columns.AddFor(m => m.Discount).Caption("Discount");
+            columns.AddFor(m => m.Total).Caption("Total");
+            columns.AddFor(m => m.TaxRate1Percentage).Caption("Tax Rate 1 Percentage");
+            columns.AddFor(m => m.TaxRate1Total).Caption("Tax Rate 1 Total");
+            columns.AddFor(m => m.TotalPlusTax).Caption("Total Plus Tax");
+
+
+
+            }).FilterRow(f => f.Visible(true))
+            .HeaderFilter(f => f.Visible(true))
+            )
+
+
+        </div>
+        <span class="m-10" style="
+    display: block;
+    margin: 10px 10px;
+">
+            @(Html.DevExtreme().Button().Text("Save").Type(ButtonType.Normal).StylingMode(ButtonStylingMode.Contained).
+            Width(200).UseSubmitBehavior(true))
+        </span>
     </div>
-      <div class="col-md-3">test</div>
-        <div class="col-md-3">Test</div>
-</div>
+</form>
+<script>
+    $(document).ready(function() {
+        var data;
+
+        $("#invoiceFrom").submit(function(event) {
+
+            event.preventDefault();
+
+            var $formdata = $(this);
+            var serializedData = $formdata.serializeArray();
+            var f = {};
+            serializedData.forEach(element => {
+                f[element.name] = element.value;
+            });
+
+            var grid = $('#UnitItems').dxDataGrid('instance');
+            var dataItems = grid.getDataSource().items();
+            console.log(dataItems);
+
+            f['InvoiceSellIUnits'] = dataItems;
+            console.log(f)
+
+
+
+            $.ajax({
+                url: '/invoice/Create?id=@ViewBag.id',
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(f),
+                success: function(result) {
+                  window.location.href="/Invoice/index"
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        })
+    })
+
+</script>

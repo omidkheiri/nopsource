@@ -12,23 +12,28 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Scripts\Scripts\**" />
-    <EmbeddedResource Remove="Scripts\Scripts\**" />
-    <None Remove="Scripts\Scripts\**" />
-  </ItemGroup>
+ 
 
   <ItemGroup>
-    <None Remove="plugin.json" />
-    <None Remove="Views\Create.cshtml" />
-    <None Remove="Views\Index.cshtml" />
-    <None Remove="Views\_UiPartial.cshtml" />
+  <None Remove="plugin.json" />
+  <None Remove="Views\Create.cshtml" />
+  <None Remove="Views\Index.cshtml" />
+  <None Remove="Views\_UiPartial.cshtml" />
+  <None Remove="logo.png" />
+  <None Remove="Scripts\dx.all.js" />
+  <None Remove="Scripts\dx.aspnet.data.js" />
+  <None Remove="Scripts\dx.aspnet.mvc.js" />
+    <None Remove="Scripts\create.js" />
+  <None Remove="Content\css\dx.light.css" />
+  <None Remove="Content\css\bootstrap.min.css" />
+  <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="plugin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  
     <Content Include="Views\Create.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -51,6 +56,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content/css/dx.light.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/css/bootstrap.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/css/icons/dxicons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/css/icons/dxicons.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/css/icons/dxicons.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\create.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,20 +1,69 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @using Nop.Plugin.Misc.Invoice.Domain;
 @{
-  Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 }
-@await  Html.PartialAsync("~/Plugins/Misc.Invoice/Views/_UiPartial.cshtml")
-@(Html.DevExtreme().DataGrid<InvoiceSell>()
-    .DataSource(d => d.OData()
-        .Url("/Invoice/InvliceList")
+@await Html.PartialAsync("~/Plugins/Misc.Invoice/Views/_UiPartial.cshtml")
+<span class="m-10" style="
+    display: block;
+    margin: 10px 10px;
+">
+    @(Html.DevExtreme().Button().Text("Add New One").Type(ButtonType.Default).StylingMode(ButtonStylingMode.Contained).
+    Width(200).OnClick("()=>{window.location.href='/Invoice/Create?id=0'}"))
+</span>
+
+
+@(Html.DevExtreme().DataGrid<InvoiceSell>().ID("InvoiceItems")
+     .DataSource(d => d.Mvc()
+        .Controller("Invoice").LoadAction("InvoiceList")
         .Key("InvoiceNo")
     )
-    .RemoteOperations(true)
+    .RemoteOperations(true).ShowColumnLines(true)
+	 .Scrolling(s => s
+        .Mode(GridScrollingMode.Virtual)
+        .RowRenderingMode(GridRowRenderingMode.Virtual)
+    )
+    .Paging(p => p.PageSize(100))
+    .HeaderFilter(f => f.Visible(true))
+    .WordWrapEnabled(true)
+    .Height(440)
+    .ShowRowLines(true)
+    .RowAlternationEnabled(true)
+    .ShowBorders(true)
     .Columns(columns => {
-        columns.AddFor(m => m.InvoiceNo);
-            
-       
+     columns.AddFor(m => m.Id).Caption("Invoice No").CellTemplate(@<text>  
+<a href='sdfsdf?b31n_id_num_packing=<%= Value %>'>Show</a>  
+</text>
+     
+     );
+     columns.AddFor(m => m.InvoiceNo).Caption("Invoice No");
+     columns.AddFor(m => m.DateG).Caption("Date G");
+     columns.AddFor(m => m.EName);
+     columns.AddFor(m => m.MainContact1).Caption("Main Contact 1");
+     columns.AddFor(m => m.AName);
+     columns.AddFor(m => m.InvoiceVatid).Caption("Invoice Vat id");;
+     columns.AddFor(m => m.ClientVendorNo).Caption("Client Vendor No");
+    }).FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+    )
+    <script>
 
-    })
-   
-)
+$(document).ready(function(){
+
+  $("#InvoiceItems").dxDataGrid({
+        onRowClick: function(e) {
+            if(e.rowType === "data") {
+                console.log(e);
+              window.location.href="/invoice/create?id="+e.data['InvoiceNo']
+            }
+        }
+    });
+
+ 
+ 
+
+
+})
+
+  
+</script>

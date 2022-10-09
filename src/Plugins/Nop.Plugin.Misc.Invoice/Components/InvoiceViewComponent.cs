@@ -1,10 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Nop.Core;
+﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Plugin.Misc.Invoice.Services;
-using Nop.Services.Customers;
 using Nop.Web.Framework.Components;
+using System;
 
 namespace Nop.Plugin.Misc.Invoice.Components
 {
@@ -18,14 +15,14 @@ namespace Nop.Plugin.Misc.Invoice.Components
 
         private readonly IInvoiceSellService _invoiceSellService;
 
-    
 
-    #endregion
 
-    #region Ctor
+        #endregion
 
-    public InvoiceViewComponent(IInvoiceSellService invoiceSellService)
-    {
+        #region Ctor
+
+        public InvoiceViewComponent(IInvoiceSellService invoiceSellService)
+        {
             _invoiceSellService = invoiceSellService;
         }
 
@@ -33,16 +30,17 @@ namespace Nop.Plugin.Misc.Invoice.Components
 
         #region Methods
 
-      
 
 
-        public IViewComponentResult Invoke() { 
-        
-        
-        return View("~/Plugins/Misc.Invoice/Views/Index.cshtml");
-        
+
+        public IViewComponentResult Invoke()
+        {
+
+
+            return View("~/Plugins/Misc.Invoice/Views/Index.cshtml");
+
         }
-     
+
         #endregion
     }
 }

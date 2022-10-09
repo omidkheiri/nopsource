@@ -8,7 +8,8 @@ namespace Nop.Plugin.Misc.Invoice.Services
     public interface IInvoiceSellService
     {
         void Add(InvoiceSell record);
-        Task<InvoiceSell> GetById(int id);
+        InvoiceSell GetById(int id);
         object GetInvoices(DataSourceLoadOptions loadOptions);
+        void Update(int id, InvoiceSell record);
     }
 }

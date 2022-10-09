@@ -70,10 +70,11 @@
     <!--Powered by nopCommerce - https://www.nopCommerce.com-->
 </head>
 <body>
+     @NopHtml.GenerateScripts(ResourceLocation.Footer)
+    @NopHtml.GenerateInlineScripts(ResourceLocation.Footer)
     <nop-antiforgery-token />
     @RenderBody()
 
-    @NopHtml.GenerateScripts(ResourceLocation.Footer)
-    @NopHtml.GenerateInlineScripts(ResourceLocation.Footer)
+   
 </body>
 </html>

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Nop.Web.Framework;
 using Nop.Web.Framework.Mvc.Routing;
 using Nop.Web.Infrastructure;
 
@@ -19,12 +18,12 @@ namespace Nop.Plugin.Misc.Invoice.Infrastructure
         {
             var lang = GetLanguageRoutePattern();
 
-           
-           
+
+
             endpointRouteBuilder.MapControllerRoute(name: "Plugin.MiscInvoice",
                 pattern: $"{lang}/Invoice/Index",
                 defaults: new { controller = "Invoice", action = "Index" });
-  }
+        }
 
         /// <summary>
         /// Gets a priority of route provider

@@ -3,13 +3,13 @@ using Nop.Services.Plugins;
 
 namespace Nop.Plugin.Misc.Invoice
 {
-  public class IvoiceProcessor:BasePlugin, IMiscPlugin
-  {
+    public class IvoiceProcessor : BasePlugin, IMiscPlugin
+    {
         public override Task InstallAsync()
         {
             return base.InstallAsync();
         }
-      
+
 
         /// <summary>
         /// Uninstall plugin
